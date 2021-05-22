@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../../../main.css" />
+    <title>Pedometer | ALM-project</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../../../">Pedometer</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="../../../">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" style="color: white;" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Profile
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark active" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="../information/">Your information</a></li>
+                    <li><a class="dropdown-item" href="../score/">Your Highscore</a></li>
+                    <li><a class="dropdown-item" href="../team/">Your Team</a></li>
+                </ul>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="../../highscore/" aria-disabled="true"
+                >Highscore</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                href="../../team-highscore/"
+                tabindex="-1"
+                aria-disabled="true"
+                >Team Highscore</a
+              >
+            </li>
+          </ul>
+          <div class="d-flex" >
+            <button class="btn btn-primary" id="profile-score-sign-out">
+              Sign out
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+          <div class="mb-3 pt-3">
+            <h3>Your total score:</h3>
+          </div>
+          <div class="mb-3">
+            <p><span id="profile-your-score"></span> current steps</p>
+          </div>
+          <div class="mb-3 pt-3">
+            <h3>Add steps</h3>
+          </div>
+          <div class="mb-3">
+              <label for="date-selector">Select date:</label>
+            <div class="input-group">
+                <select class="form-select" id="date-selector" aria-label="Example select with button addon">
+                  <option selected>Date</option>
+                </select>
+              </div>
+          </div>
+          <div class="mb-3">
+            <label for="score-add-steps" class="form-label">Add number of steps</label>
+            <input type="number" class="form-control" id="score-add-steps" placeholder="Number of steps">
+          </div>
+          <div class="mb-3 pe-4 ps-4">
+            <input type="submit" class="form-control btn btn-primary" id="add-steps" value="Add steps">
+        </div>
+          <div class="mb-3 pt-3">
+            <h3>Steps at...</h3>
+          </div>
+          <div class="mb-3">
+              <label for="date-selector">Select date:</label>
+            <div class="input-group">
+                <select class="form-select" id="date-selector-2" aria-label="Example select with button addon">
+                  <option selected>Date</option>
+                </select>
+              </div>
+          </div>
+          <div class="mb-3" id="number-of-steps-at-date" >
+              <h6>On date <span id="score-date-select"></span></h6>
+              <h6>Number of steps: <span id="score-show-total-step-at-date" ></span></h6>
+           </div>
+          <div class="mb-3 pe-4 ps-4">
+            <input type="submit" class="form-control btn btn-primary" id="see-steps-at-date" value="See number of steps taken">
+        </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../../../url.js"></script>
+    <script src="../../../app.js"></script>
+    <script>
+      $(document).ready(() => {
+        addDateToPicker()
+        hideStepsAtDate()
+        getTotalNumberOfStepsFromUser()
+        $('#profile-score-sign-out').click(() => {
+          sessionStorage.removeItem('loggedIn')
+          window.location.href = "../../../";
+        })
+      })
+    </script>
+  </body>
+</html>

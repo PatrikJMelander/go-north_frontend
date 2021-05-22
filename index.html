@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./main.css" />
+    <title>Pedometer | ALM-project</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="./">Pedometer</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="./">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle disabled" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Profile
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark active" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="./pages/profile/information/index.html">Your information</a></li>
+                <li><a class="dropdown-item" href="./pages/profile/score/">Your Score</a></li>
+                <li><a class="dropdown-item" href="./pages/profile/team/">Your Team</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a id="nav-highscore" class="nav-link disabled" href="./pages/highscore/" aria-disabled="true"
+                >Highscore</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                id="nav-team-highscore"
+                class="nav-link disabled"
+                href="./pages/team-highscore/"
+                tabindex="-1"
+                aria-disabled="true"
+                >Team Highscore</a
+              >
+            </li>
+          </ul>
+          <div class="d-flex">
+            <button class="btn btn-primary" id="nav-sign-in">
+              Sign in
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="col-md-12 position-relative"> 
+        <img src="./images/background-image.jpg" class="img-fluid" alt="background-image">
+    </div> 
+
+    <!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="loginModalLabel">Sign in</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="sign-in-email" placeholder="name@example.com">
+                <label for="sign-in-email">Email address</label>
+              </div>
+              <div class="form-floating">
+                <input type="password" class="form-control" id="sign-in-password" placeholder="Password">
+                <label for="sign-in-password">Password</label>
+              </div>
+        </div>
+        <div class="modal-footer flex-column d-grid gap-2 col-6 mx-auto">
+          <button type="button" class="btn btn-primary" id="validate-sign-in">Sign in</button>
+          <button type="button" class="btn btn-outline-secondary" id="new-user">Join the Race!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="container">
+      <div class="row pt-3">
+        <div class="col align-self-center text-center">
+          <p class="m-0 footer-text">Someroad 32, 123 43 Stockholm</p>
+          <p class="m-0 footer-text">0707 45 34 34</p>
+          <p class="m-0 footer-text">Copyright &COPY; Pedometer AB</p>
+        </div>
+      </div>
+
+  </footer>
+
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./url.js"></script>
+    <script src="./app.js"></script>
+    <script>
+      $(document).ready(() => {
+        checkIfLoggedIn()
+      })
+    </script>
+  </body>
+</html>
