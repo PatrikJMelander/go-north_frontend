@@ -442,6 +442,7 @@ const renderTeamInformation = () => {
     .then(resp => {
         teamContainer = renderTeamName(teamContainer, resp.data.teamName);
         teamContainer = renderSteps(teamContainer, totalSteps);
+        renderTeamMember(teamContainer, resp.data.teamMembers);
     })
 }
 
