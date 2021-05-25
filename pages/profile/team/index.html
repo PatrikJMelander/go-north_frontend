@@ -72,22 +72,30 @@
       <div class="row">
         <div class="mb-3 mt-3 pt-1">
           <h3>Join a Team</h3>
-          <p>Join a team to enhance your experiance and get others to embark on you journey to a more healthier lifestyle, in a fun and envieromently friendly way</p>
+          <p>Join a team to enhance your experience and get others to embark on your journey to a more healthy lifestyle, in a fun and environment friendly way!</p>
         </div>
-        <div class="mb-3 mt-3 pt-1">
-          <button type="button" class="btn btn-primary" id="join-team-btn">Join a team</button>
-         </div>
-        <div id="teams-container">
-          
-
-        </div>
-
       </div>
+      
+        <div class="row justify-content-center">
+          <div class="col-5 mb-3 mt-3 pt-1">
+            <button type="button" class="btn btn-primary" id="join-team-btn">Join a team</button>
+           </div>
+          <div class="col-5 mb-3 mt-3 pt-1">
+            <button type="button" class="btn btn-primary" id="add-team-btn">Add new team</button>
+           </div>
+        </div>
+        
+          <div class="row justify-content-center" id="teams-container">
+          </div>
+        
+        
+
+      
     </div>
   
     <!-- HAS TEAM CONTAINER -->
     <div class="container" id="has-team">
-        <div class="row">
+       <!--  <div class="row">
           <div class="mb-3 mt-3 pt-1">
             <h3>Team:</h3>
             <h4 id="profile-team-name">Best_Team_Ever</h4>
@@ -128,10 +136,34 @@
                   </tr>
                 </tbody>
               </table>
+              
             </div>
-        </div>
-        </div>
+          </div>
+        </div> -->
+
+
     </div>
+
+<!-- ADD TEAM Modal -->
+<div class="modal fade" id="addTeamModal" tabindex="-1" aria-labelledby="addTeamModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="addTeamModal">Add new team</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="new-team-name" placeholder="Best_Team_Ever">
+              <label for="sign-in-email">Team name</label>
+            </div>
+      </div>
+      <div class="modal-footer flex-column d-grid gap-2 col-6 mx-auto">
+        <button type="button" class="btn btn-primary" id="add-new-team">Add new team</button>
+      </div>
+    </div>
+  </div>
+</div>
     
 
     <!-- JavaScript Bundle with Popper -->
@@ -153,6 +185,7 @@
     <script>
       $(document).ready(() => {
         checkIfUserHasTeam()
+        renderTeamInformation()
         $('#profile-team-sign-out').click(() => {
           sessionStorage.removeItem('loggedIn')
           window.location.href = "../../../"; 

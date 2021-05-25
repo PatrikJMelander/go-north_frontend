@@ -106,7 +106,7 @@ $('#delete-user').click(() => {
         title: "Warning!",
         text: "Are you sure you wanna delete your account?",
         icon: "warning",
-        buttons: ["No I wanna keep raceing", "Yes" ],
+        buttons: ["No, I wanna keep racing", "Yes" ],
         dangerMode: true,
       })
       .then((willDelete) => {
@@ -136,8 +136,8 @@ $('#delete-user').click(() => {
  * @param {String} password 
  */
  const deleteAccount = (password) => {
-    //const userEmail = JSON.parse(sessionStorage.getItem('loggedIn')).email
-    const userEmail = 'test@email.com'
+    const userEmail = JSON.parse(sessionStorage.getItem('loggedIn')).email
+    
 
     axios.get(`${deleteUser}?email=${userEmail}&password=${password}`)
     .then(resp => {
@@ -365,9 +365,18 @@ $('#join-team-btn').click(() => {
     addTeamsToContainer();
 })
 
+
+$('#add-team-btn').click(() => {
+    $('#addTeamModal').modal('show')
+})
+
+$('#add-new-team').click(() => {
+    addTeam();
+})
+
 const checkIfUserHasTeam = () => {
     // get from db if user has team
-    const hasTeam = false
+    const hasTeam = true
     if(hasTeam){
         $('#has-team').show()
     }else {
@@ -378,28 +387,122 @@ const checkIfUserHasTeam = () => {
 const addTeamsToContainer = () => {
     $('#teams-container').html('')
 
-    // get all teams from database
+    axios.get(getAllTeamsUrl)
+    .then(resp => {
+        resp.data.forEach(team => {
+            $('#teams-container').append(`
+            <div class=" col-10 m-3 p-2 pt-1 border border-2 border-secondary rounded-3">
+                <h6 class="display-6">Team:</h6>
+                <p id="join-team-name">${team.teamName}</p>
+                <button type="button" class="btn btn-primary" id="${team.teamName}" onclick="selectTeamToJoin(${team.teamName})">Join team</button>
+            </div>
+        `)
+        })
+    })
 
-    const teams = [{"name": "Best_Team_ever"},
-    {"name": "Worst_Team_ever"},
-    {"name": "Middle_Team_ever"},]
+    
+}
 
-    teams.forEach(team => {
-        $('#teams-container').append(`
-        <div class=" col-10 m-3 p-2 pt-1 border border-2 border-secondary rounded-3">
-            <h6 class="display-6">Team:</h6>
-            <p id="join-team-name">${team.name}</p>
-            <button type="button" class="btn btn-primary" id="${team.name}" onclick="selectTeamToJoin(${team.name})">Join team</button>
-        </div>
-    `)
+const addTeam = () => {
+    const newTeamName = $('#new-team-name').val()
+
+    axios.post(addTeamUrl, { "teamName": newTeamName})
+    .then(resp => {
+        swal("Success", `You created ${resp.data.teamName}`, "success")
+        .then(() => {
+            $('#addTeamModal').modal('hide')
+        });
+    })
+    .catch((err) => {
+        swal("Warning", err.response.data.message, "warning");
     })
 }
 
 const selectTeamToJoin = (e) => {
-    console.log(e.id);
+    
+    const teamName = e.id;
+    const userEmail = JSON.parse(sessionStorage.getItem('loggedIn')).email;
 
-    // send current logged in to database and add them to a team
+    axios.post(`${addUserToTeam}?userEmail=${userEmail}&teamName=${teamName}`)
+    .then(resp => {
+        swal("Success", `You joined ${resp.data.teamName}`, "success")
+    })
+    .catch((err) => {
+        swal("Warning", err.response.data.message, "warning");
+    })
+
 }
+
+const renderTeamInformation = () => {
+    let teamContainer = $('#has-team');
+    const userEmail = JSON.parse(sessionStorage.getItem('loggedIn')).email;
+    const totalSteps = "123 123 123"
+
+    axios.get(`${getAllTeamOfUser}?email=${userEmail}`)
+    .then(resp => {
+        teamContainer = renderTeamName(teamContainer, resp.data.teamName);
+        teamContainer = renderSteps(teamContainer, totalSteps);
+    })
+}
+
+const renderTeamName = (container, teamName) => {
+    return container.html(`
+     <div class="row">
+          <div class="mb-3 mt-3 pt-1">
+            <h3>Team:</h3>
+            <h4 id="profile-team-name">${teamName}</h4>
+          </div>
+     `)
+}
+
+const renderSteps = (container, steps) => {
+    return container.html(`
+    <div class="mb-3">
+        <h6>Total steps:</h6>
+        <p><span id="profile-team-score">${steps}</span> steps</p>
+    </div>
+    `)
+}
+
+const renderTeamMember = (container, members) => {
+    container.html(`
+    <div>
+    <hr>
+    <h4>Members</h4>
+  </div>
+  <div class="container">
+    <div class="row g-0">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Total steps</th>
+          </tr>
+        </thead>
+        <tbody>
+    `)
+
+    members.each((index, value) => {
+        container.html(`
+        <tr>
+        <th scope="row">${index + 1}</th>
+        <td>${value.name + " " + value.lastName}</td>
+        <td>${getTotalStepScore(value)}</td>
+      </tr>
+        `)
+    })
+
+    container.html(`
+            </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+    `)
+   
+}
+      
 
 /* -------------------------------- HIGHSCORE -------------------------------- */
 
@@ -449,7 +552,13 @@ const fillHighScoreList = () => {
             <tr>
                 <th scope="row">${index + 1}</th>
                 <td>${user.name}</td>
-                <td>${user.steps}</td>
+                <td>${user.steps.toLocaleString(
+                    "sv-SE",
+                    {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                    }
+                )}</td>
           </tr>
             `)
         })
