@@ -358,7 +358,7 @@ const setStepAtDateGui = (stepsFromDb, date) => {
         $('#number-of-steps-at-date').show()
     }else {
         $('#score-date-select').text(date)
-        $('#score-show-total-step-at-date').text('no steps register on that date')
+        $('#score-show-total-step-at-date').text('you have not registered any steps on this date')
         $('#number-of-steps-at-date').show()
     }
 }
