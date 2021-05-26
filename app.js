@@ -435,11 +435,13 @@ const addTeamsToContainer = () => {
             <div class=" col-10 m-3 p-2 pt-1 border border-2 border-secondary rounded-3">
                 <h6>Team:</h6>
                 <p id="join-team-name" class="display-6">${team.teamName}</p>
-                <button type="button" class="btn btn-primary" id="${team.teamName}" onclick="selectTeamToJoin(${team.teamName})">Join team</button>
+                <button type="button" class="btn btn-primary join-team-btn" id="${team.teamName}" onclick="selectTeamToJoin">Join team</button>
             </div>
         `)
         })
+        $('.join-team-btn').click(selectTeamToJoin)
     })
+    
 
 }
 
@@ -461,9 +463,7 @@ const addTeam = () => {
 
 const selectTeamToJoin = (e) => {
 
-    console.log(e.id);
-
-    const teamName = e.id;
+    const teamName = e.target.id;
     const userEmail = JSON.parse(sessionStorage.getItem('loggedIn')).email;
 
     axios.post(`${addUserToTeam}?userEmail=${userEmail}&teamName=${teamName}`)
