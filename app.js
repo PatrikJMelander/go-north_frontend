@@ -8,7 +8,11 @@ $('#validate-sign-in').click(() => {
 })
 
 $('#new-user').click(() => {
-    swal("BOOM!", "Go to postman to add new user", "warning");
+    $('#regModal').modal('show')
+})
+
+$('#reg-add-account').click(() => {
+    registrateAccount();
 })
 
 $('#nav-sign-in').click(() => {
@@ -89,6 +93,42 @@ const setNavLinksToActive = () => {
         highscore.removeClass('active')
         teamHighscore.removeClass('active')
     }
+}
+
+const registrateAccount = () => {
+    let regFirstName = $('#reg-firstName')
+    let regLastName = $('#reg-lastName')
+    let regEmail = $('#reg-email')
+    let regPassword = $('#reg-password')
+
+    const newAccount = {
+        "firstName": regFirstName.val(),
+        "lastName": regLastName.val(),
+        "password": regPassword.val(),
+        "email": regEmail.val()
+    }
+
+    axios.post(addAccount, newAccount)
+    .then((resp)=> {
+        swal("Welcome!", `${resp.data.firstName} you have joined the race`, "success")
+        .then(()=> {
+            regFirstName.val('')
+            regLastName.val('')
+            regEmail.val('')
+            regPassword.val('')
+        })
+        .then(() => {
+            $('#regModal').modal('hide')
+        })
+    })
+    .catch((err)=> {
+        console.log(err.response.data.message);
+        swal("Warning!", `${err.response.data.message}`, "warning")
+        .then(()=> {
+            regEmail.val('')
+            regPassword.val('')
+        })
+    })
 }
 
 /* -------------------------------- PROFILE INFORMATION -------------------------------- */
@@ -390,27 +430,28 @@ const addTeamsToContainer = () => {
     axios.get(getAllTeamsUrl)
     .then(resp => {
         resp.data.forEach(team => {
+            console.log(team);
             $('#teams-container').append(`
             <div class=" col-10 m-3 p-2 pt-1 border border-2 border-secondary rounded-3">
-                <h6 class="display-6">Team:</h6>
-                <p id="join-team-name">${team.teamName}</p>
+                <h6>Team:</h6>
+                <p id="join-team-name" class="display-6">${team.teamName}</p>
                 <button type="button" class="btn btn-primary" id="${team.teamName}" onclick="selectTeamToJoin(${team.teamName})">Join team</button>
             </div>
         `)
         })
     })
 
-    
 }
 
 const addTeam = () => {
-    const newTeamName = $('#new-team-name').val()
+    const newTeamName = $('#new-team-name')
 
-    axios.post(addTeamUrl, { "teamName": newTeamName})
+    axios.post(addTeamUrl, { "teamName": newTeamName.val()})
     .then(resp => {
         swal("Success", `You created ${resp.data.teamName}`, "success")
         .then(() => {
             $('#addTeamModal').modal('hide')
+            newTeamName.val('')
         });
     })
     .catch((err) => {
@@ -419,13 +460,18 @@ const addTeam = () => {
 }
 
 const selectTeamToJoin = (e) => {
-    
+
+    console.log(e.id);
+
     const teamName = e.id;
     const userEmail = JSON.parse(sessionStorage.getItem('loggedIn')).email;
 
     axios.post(`${addUserToTeam}?userEmail=${userEmail}&teamName=${teamName}`)
     .then(resp => {
         swal("Success", `You joined ${resp.data.teamName}`, "success")
+        .then(() => {
+            window.location.href='./'
+        })
     })
     .catch((err) => {
         swal("Warning", err.response.data.message, "warning");
@@ -435,19 +481,22 @@ const selectTeamToJoin = (e) => {
 
 const renderTeamInformation = () => {
     let teamContainer = $('#has-team');
+    teamContainer.html('')
     const userEmail = JSON.parse(sessionStorage.getItem('loggedIn')).email;
-    const totalSteps = "123 123 123"
 
     axios.get(`${getAllTeamOfUser}?email=${userEmail}`)
-    .then(resp => {
-        teamContainer = renderTeamName(teamContainer, resp.data.teamName);
-        teamContainer = renderSteps(teamContainer, totalSteps);
-        renderTeamMember(teamContainer, resp.data.teamMembers);
+    .then(resp => {    
+        resp.data.forEach((team,index) => {
+            teamContainer = renderTeamName(teamContainer, team.teamName);
+            teamContainer = renderSteps(teamContainer, team.totalSteps);
+            renderTeamMember(teamContainer, team.teamMembers, team.teamName, index, userEmail);
+            teamContainer.show()
+        })   
     })
 }
 
 const renderTeamName = (container, teamName) => {
-    return container.html(`
+    return container.append(`
      <div class="row">
           <div class="mb-3 mt-3 pt-1">
             <h3>Team:</h3>
@@ -457,17 +506,26 @@ const renderTeamName = (container, teamName) => {
 }
 
 const renderSteps = (container, steps) => {
-    return container.html(`
+    return container.append(`
     <div class="mb-3">
         <h6>Total steps:</h6>
-        <p><span id="profile-team-score">${steps}</span> steps</p>
+        <p><span id="profile-team-score">${steps.toLocaleString(
+            "sv-SE",
+            {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+            }
+        )}</span> steps</p>
     </div>
     `)
 }
 
-const renderTeamMember = (container, members) => {
-    container.html(`
-    <div>
+const renderTeamMember = (container, members, teamName, index, userEmail) => {
+    container.append(`
+    <div class="col-5 mb-3">
+            <button type="button" class="btn btn-danger" id="${teamName}${index}">Leave team</button>
+    </div>
+  <div>
     <hr>
     <h4>Members</h4>
   </div>
@@ -481,27 +539,48 @@ const renderTeamMember = (container, members) => {
             <th scope="col">Total steps</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="${teamName}">
     `)
 
-    members.each((index, value) => {
-        container.html(`
+    members.forEach((value, index) => {
+        $(`#${teamName}`).append(`
         <tr>
-        <th scope="row">${index + 1}</th>
-        <td>${value.name + " " + value.lastName}</td>
-        <td>${getTotalStepScore(value)}</td>
-      </tr>
+            <th scope="row">${index + 1}</th>
+            <td>${value.firstName + " " + value.lastName}</td>
+            <td>${getTotalStepScore(value).toLocaleString(
+                "sv-SE",
+                {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+                }
+            )}</td>
+        </tr>
         `)
     })
 
-    container.html(`
+    container.append(`
             </tbody>
             </table>
             </div>
         </div>
     </div>
+    <div style="background-color: black; opacity:0.6; border-radius:2px; margin-bottom: 1em; height: 5px; width: 100%;"></div>
     `)
-   
+
+    $(`#${teamName}${index}`).click(() => {
+        removeUserFromTeam(userEmail,teamName)
+    })
+}
+
+const removeUserFromTeam = (email, teamName) => {
+    
+    axios.get(`${deleteUserFromTeamUrl}?email=${email}&teamName=${teamName}`)
+    .then(() => {
+        renderTeamInformation()
+    })
+    .catch((err)=> {
+        console.log(err.response.data.message);
+    })
 }
       
 
@@ -528,8 +607,6 @@ $('#btn-all').click(()=> {
 })
 
 const fillHighScoreList = () => {
-
-    
     $('#highscore-container').html('')
 
     let highScoreList = []
@@ -546,7 +623,7 @@ const fillHighScoreList = () => {
         
     })
     .then(() => {
-        sortPriceDecending(highScoreList)
+        sortUserDecending(highScoreList)
         .slice(0,sizaOfHighscoreList)
         .forEach((user,index) => {
             $('#highscore-container').append(`
@@ -566,7 +643,7 @@ const fillHighScoreList = () => {
     })   
 }
 
-const sortPriceDecending = (list) => { return list.sort((a, b) => parseFloat(b.steps) - parseFloat(a.steps))}
+const sortUserDecending = (list) => { return list.sort((a, b) => parseFloat(b.steps) - parseFloat(a.steps))}
 
 const getTotalStepScore = (user) => {
     let totalSteps = 0; 
@@ -577,3 +654,62 @@ const getTotalStepScore = (user) => {
 }
 
 /* -------------------------------- TEAM HIGHSCORE -------------------------------- */
+
+let sizaOfTeamHighscoreList = 10
+
+$('#team-btn-10').click(()=> {
+    sizaOfTeamHighscoreList = 10
+    $('#team-filter-btn').html('Top 10')
+    fillHighScoreList()
+})
+
+$('#team-btn-20').click(()=> {
+    sizaOfTeamHighscoreList = 20
+    $('#team-filter-btn').html('Top 20')
+    fillHighScoreList()
+})
+
+$('#team-btn-all').click(()=> {
+    sizaOfTeamHighscoreList = 1000000
+    $('#team-filter-btn').html('Top All')
+    fillHighScoreList()
+})
+
+const fillTeamHighScoreList = () => {
+
+    $('#team-highscore-container').html('')
+
+    let teamHighScoreList = []
+
+    axios.get(`${getAllTeamsUrl}`)
+    .then(resp => {
+        resp.data.forEach((team,index) => {
+            teamHighScoreList.push({
+                "teamName": team.teamName,
+                "steps": team.totalSteps
+            })
+        })
+        
+    })
+    .then(() => {
+        sortTeamDecending(teamHighScoreList)
+        .slice(0,sizaOfTeamHighscoreList)
+        .forEach((team,index) => {
+            $('#team-highscore-container').append(`
+            <tr>
+                <th scope="row">${index + 1}</th>
+                <td>${team.teamName}</td>
+                <td>${team.steps.toLocaleString(
+                    "sv-SE",
+                    {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                    }
+                )}</td>
+          </tr>
+            `)
+        })
+    })   
+}
+
+const sortTeamDecending = (list) => { return list.sort((a, b) => parseFloat(b.steps) - parseFloat(a.steps))}

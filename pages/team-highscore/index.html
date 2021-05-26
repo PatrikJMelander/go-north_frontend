@@ -68,11 +68,52 @@
       </div>
     </nav>
 
-    
+    <!-- NAV ENDS -->
+
+    <!-- FILTER BTN -->
+
+    <div class="dropdown m-2 sorting-dropdown">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        id="team-filter-btn"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Show
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="team-filter-btn">
+        <li>
+          <button class="dropdown-item" type="button" id="team-btn-10">
+            0-10
+          </button>
+        </li>
+        <li>
+          <button
+            class="dropdown-item"
+            type="button"
+            id="team-btn-20"
+          >
+           0 - 20
+          </button>
+        </li>
+        <li>
+          <button
+            class="dropdown-item"
+            type="button"
+            id="team-btn-all"
+          >
+            all
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- FILTER BTN ENDS -->
 
     <div class="container">
-        <div class="row g-0 mt-3">
-            <h1>TEAM HIGHSCORES</h1>
+        <div class="row g-0">
+          <h1 class="mt-2">Team HIGHSCORE</h1>
           <table class="table">
             <thead>
               <tr>
@@ -81,26 +122,12 @@
                 <th scope="col">Total steps</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Best_Team_Ever</td>
-                <td>344 345 455</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Middle_Team_Ever</td>
-                <td>114 345 455</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Worst_Team_Ever</td>
-                <td>24 345 455</td>
-              </tr>
+            <tbody id="team-highscore-container">
             </tbody>
           </table>
         </div>
     </div>
+
 
     <!-- JavaScript Bundle with Popper -->
     <script
@@ -120,6 +147,7 @@
     <script src="../../app.js"></script>
     <script>
       $(document).ready(() => {
+        fillTeamHighScoreList();
         $('#team-highscore-sign-out').click(() => {
           sessionStorage.removeItem('loggedIn')
           window.location.href = "../../";

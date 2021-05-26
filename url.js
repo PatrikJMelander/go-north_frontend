@@ -16,4 +16,6 @@ let addUserToTeam = `${startUrl}/api/v1/teams/add/user`
 let addTeamUrl = `${startUrl}/api/v1/teams/add`
 let getAllTeamsUrl = `${startUrl}/api/v1/teams`
 let getAllTeamOfUser = `${startUrl}/api/v1/users/getUserTeams`
+let addAccount = `${startUrl}/api/v1/users/add`
+let deleteUserFromTeamUrl = `${startUrl}/api/v1/users/leave/team`
 

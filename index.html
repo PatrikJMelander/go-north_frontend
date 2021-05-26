@@ -70,45 +70,78 @@
     </nav>
 
     
-        <img src="./images/background-image.jpg" class="img-fluid" alt="background-image">
+    <img src="./images/background-main.jpg" class="img-fluid" alt="background-image">
      
-
-    <!-- Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title text-center" id="loginModalLabel">Sign in</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
+      <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-center" id="loginModalLabel">Sign in</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="sign-in-email" placeholder="name@example.com">
-                <label for="sign-in-email">Email address</label>
-              </div>
-              <div class="form-floating">
-                <input type="password" class="form-control" id="sign-in-password" placeholder="Password">
-                <label for="sign-in-password">Password</label>
-              </div>
-        </div>
-        <div class="modal-footer flex-column d-grid gap-2 col-6 mx-auto">
-          <button type="button" class="btn btn-primary" id="validate-sign-in">Sign in</button>
-          <button type="button" class="btn btn-outline-secondary" id="new-user">Join the Race!</button>
+              <input type="email" class="form-control" id="sign-in-email" placeholder="name@example.com">
+              <label for="sign-in-email">Email address</label>
+            </div>
+            <div class="form-floating">
+              <input type="password" class="form-control" id="sign-in-password" placeholder="Password">
+              <label for="sign-in-password">Password</label>
+            </div>
+          </div>
+          <div class="modal-footer flex-column d-grid gap-2 col-6 mx-auto">
+            <button type="button" class="btn btn-primary" id="validate-sign-in">Sign in</button>
+            <button type="button" class="btn btn-outline-secondary" id="new-user">Join the Race!</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <footer class="container">
-      <div class="row pt-3">
+    <!-- REG MODAL -->
+    <div class="modal fade" id="regModal" tabindex="-1" aria-labelledby="regModal" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-center" id="regModal">Sign in</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="reg-firstName" placeholder="firstname">
+              <label for="sign-in-email">Firstname</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="reg-lastName" placeholder="lastname">
+              <label for="sign-in-password">Lastname</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="email" class="form-control" id="reg-email" placeholder="name@example.com">
+              <label for="sign-in-email">Email</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" id="reg-password" placeholder="Password">
+              <label for="sign-in-password">Password</label>
+            </div>
+          </div>
+          <div class="modal-footer flex-column d-grid gap-2 col-6 mx-auto">
+            <button type="button" class="btn btn-primary" id="reg-add-account">Registrate account</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+ 
+    <!-- FOOTER -->
+    <footer class="container">
+      <div class="row pt-5">
         <div class="col align-self-center text-center">
           <p class="m-0 footer-text">Someroad 32, 123 43 Stockholm</p>
           <p class="m-0 footer-text">0707 45 34 34</p>
           <p class="m-0 footer-text">Copyright &COPY; Pedometer AB</p>
         </div>
       </div>
-
-  </footer>
+    </footer>
 
     <!-- JavaScript Bundle with Popper -->
     <script
