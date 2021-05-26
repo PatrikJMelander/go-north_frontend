@@ -1,8 +1,8 @@
 // for localhost
-const startUrl = 'http://localhost:8080'
+//const startUrl = 'http://localhost:8080'
 
 // for heruko 
-//const startUrl = 'heroku'
+const startUrl = 'https://alm-pedometer.herokuapp.com'
 
 let validateLogin = `${startUrl}/api/v1/users/validate/`
 let getStepsOfUser = `${startUrl}/api/v1/users/get/one?email=`
