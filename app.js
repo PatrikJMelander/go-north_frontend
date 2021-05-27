@@ -587,9 +587,9 @@ const removeUserFromTeam = (email, teamName) => {
 const replaceWhiteSpace = (teamName) => {
     let newString = teamName
     if(teamName.includes("¤¤¤¤¤")){
-        return newString.replace("¤¤¤¤¤", " ")
+        return newString.replaceAll("¤¤¤¤¤", " ")
     }else{
-        return newString.replace(" ", "¤¤¤¤¤")
+        return newString.replaceAll(" ", "¤¤¤¤¤")
     }
 }
 
