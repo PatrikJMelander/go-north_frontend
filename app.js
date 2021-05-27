@@ -49,7 +49,6 @@ const validateSignIn = () => {
     
     axios.get(`${validateLogin}login?email=${email.val()}&password=${password.val()}`)
     .then(resp => {
-        console.log(resp);
         if(resp.status == 200){
             sessionStorage.setItem('loggedIn', JSON.stringify(resp.data));
             checkIfLoggedIn()
@@ -62,7 +61,6 @@ const validateSignIn = () => {
             email.val('')
             password.val('')
         }
-        
     })
     .catch(() => {
         swal("Warning", "wrong email \nor password!", "warning");
@@ -132,7 +130,6 @@ const registrateAccount = () => {
         })
     })
     .catch((err)=> {
-        console.log(err.response.data.message);
         swal("Warning!", `${err.response.data.message}`, "warning")
         .then(()=> {
             regEmail.val('')
@@ -191,7 +188,6 @@ $('#delete-user').click(() => {
 
     axios.get(`${deleteUser}?email=${userEmail}&password=${password}`)
     .then(resp => {
-        console.log(resp);
         swal("Your account has been deleted. We are sad to see you go, but we will be here and waiting for you when you wanna get back into it!", {
         icon: "success",
         })
@@ -201,7 +197,6 @@ $('#delete-user').click(() => {
         })
     })
     .catch(err => {
-        console.log(err.response)
         swal("Wrong password, please try again", {
             icon: "error",
           })
@@ -440,7 +435,6 @@ const addTeamsToContainer = () => {
     axios.get(getAllTeamsUrl)
     .then(resp => {
         resp.data.forEach(team => {
-            console.log(team);
             $('#teams-container').append(`
             <div class=" col-10 m-3 p-2 pt-1 border border-2 border-secondary rounded-3">
                 <h6>Team:</h6>
@@ -587,9 +581,6 @@ const removeUserFromTeam = (email, teamName) => {
     axios.get(`${deleteUserFromTeamUrl}?email=${email}&teamName=${teamName}`)
     .then(() => {
         renderTeamInformation()
-    })
-    .catch((err)=> {
-        console.log(err.response.data.message);
     })
 }
       
