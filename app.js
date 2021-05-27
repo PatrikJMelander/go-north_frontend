@@ -49,14 +49,24 @@ const validateSignIn = () => {
     
     axios.get(`${validateLogin}login?email=${email.val()}&password=${password.val()}`)
     .then(resp => {
-        sessionStorage.setItem('loggedIn', JSON.stringify(resp.data));
-        checkIfLoggedIn()
-        $('#loginModal').modal('hide')
-        email.val('')
-        password.val('')
+        console.log(resp);
+        if(resp.status == 200){
+            sessionStorage.setItem('loggedIn', JSON.stringify(resp.data));
+            checkIfLoggedIn()
+            $('#loginModal').modal('hide')
+            email.val('')
+            password.val('')
+        }
+        if(resp.status == 204){
+            swal("Warning", "Could not find any user with matching credentials", "warning");
+            email.val('')
+            password.val('')
+        }
+        
     })
     .catch(() => {
         swal("Warning", "wrong email \nor password!", "warning");
+        password.val('')
     })
 }
 
