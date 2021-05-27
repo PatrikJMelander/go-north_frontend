@@ -527,7 +527,7 @@ const renderSteps = (container, steps) => {
 const renderTeamMember = (container, members, teamName, index, userEmail) => {
     container.append(`
     <div class="col-5 mb-3">
-            <button type="button" class="btn btn-danger" id="${teamName}${index}">Leave team</button>
+            <button type="button" class="btn btn-danger" id="${replaceWhiteSpace(teamName)}${index}">Leave team</button>
     </div>
   <div>
     <hr>
@@ -543,11 +543,11 @@ const renderTeamMember = (container, members, teamName, index, userEmail) => {
             <th scope="col">Total steps</th>
           </tr>
         </thead>
-        <tbody id="${teamName}">
+        <tbody id="${replaceWhiteSpace(teamName)}">
     `)
 
     members.forEach((value, index) => {
-        $(`#${teamName}`).append(`
+        $(`#${replaceWhiteSpace(teamName)}`).append(`
         <tr>
             <th scope="row">${index + 1}</th>
             <td>${value.firstName + " " + value.lastName}</td>
@@ -571,7 +571,7 @@ const renderTeamMember = (container, members, teamName, index, userEmail) => {
     <div style="background-color: black; opacity:0.6; border-radius:2px; margin-bottom: 1em; height: 5px; width: 100%;"></div>
     `)
 
-    $(`#${teamName}${index}`).click(() => {
+    $(`#${replaceWhiteSpace(teamName)}${index}`).click(() => {
         removeUserFromTeam(userEmail,teamName)
     })
 }
@@ -583,6 +583,17 @@ const removeUserFromTeam = (email, teamName) => {
         renderTeamInformation()
     })
 }
+
+const replaceWhiteSpace = (teamName) => {
+    let newString = teamName
+    if(teamName.includes("¤¤¤¤¤")){
+        return newString.replace("¤¤¤¤¤", " ")
+    }else{
+        return newString.replace(" ", "¤¤¤¤¤")
+    }
+}
+
+
       
 
 /* -------------------------------- HIGHSCORE -------------------------------- */
