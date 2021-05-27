@@ -1,5 +1,5 @@
 // for localhost
-//const startUrl = 'http://localhost:8080'
+//const startUrl = 'https://go-north.herokuapp.com'
 
 // for heruko 
 const startUrl = 'https://alm-pedometer.herokuapp.com'
