@@ -1,5 +1,5 @@
 // for localhost
-//const startUrl = 'https://localhost/8080:'
+//const startUrl = 'https://go-north.herokuapp.com'
 
 // for heruko 
 const startUrl = 'https://go-north.herokuapp.com'
@@ -18,4 +18,3 @@ let getAllTeamsUrl = `${startUrl}/api/v1/teams`
 let getAllTeamOfUser = `${startUrl}/api/v1/users/getUserTeams`
 let addAccount = `${startUrl}/api/v1/users/add`
 let deleteUserFromTeamUrl = `${startUrl}/api/v1/users/leave/team`
-

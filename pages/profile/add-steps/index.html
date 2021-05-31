@@ -22,46 +22,48 @@
       </div>
     </nav>
 
-    <div class="container mt-5">
+    <div class="container">
         <div class="row">
           <div class="mb-3 pt-3">
-            <h3 class = "mt-5">Your total score:</h3>
+            <h3>Your total score:</h3>
           </div>
           <div class="mb-3">
             <p><span id="profile-your-score"></span> current steps</p>
           </div>
-         
           <div class="mb-3 pt-3">
-            <h3>Steps at...</h3>
+            <h3>Add steps</h3>
           </div>
           <div class="mb-3">
               <label for="date-selector">Select date:</label>
             <div class="input-group">
-                <select class="form-select" id="date-selector-2" aria-label="Example select with button addon">
+                <select class="form-select" id="date-selector" aria-label="Example select with button addon">
                   <option selected>Date</option>
                 </select>
               </div>
           </div>
-          <div class="mb-3" id="number-of-steps-at-date" >
-              <h6>On date <span id="score-date-select"></span></h6>
-              <h6>Number of steps: <span id="score-show-total-step-at-date" ></span></h6>
-           </div>
+          <div class="mb-3">
+            <label for="score-add-steps" class="form-label">Add number of steps</label>
+            <input type="number" class="form-control" id="score-add-steps" placeholder="Number of steps">
+          </div>
           <div class="mb-3 pe-4 ps-4">
-            <input type="submit" class="form-control btn btn-primary" id="see-steps-at-date" value="See number of steps taken">
+            <input type="submit" class="form-control btn btn-primary" id="add-steps" value="Add steps">
         </div>
+         
+
+
         </div>
     </div>
     <footer class="container">
       <div class="row pt-3">
         <div class="col align-self-center text-center">
           <div class="d-flex justify-content-between me-5 ms-5 mb-2">
-            <a href="./"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 7.093v-5.093h-3v2.093l3 3zm4 5.907l-12-12-12 12h3v10h7v-5h4v5h7v-10h3zm-5 8h-3v-5h-8v5h-3v-10.26l7-6.912 7 6.99v10.182z"/>
+            <a href="../../homepage-logged-in/index.html"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 7.093v-5.093h-3v2.093l3 3zm4 5.907l-12-12-12 12h3v10h7v-5h4v5h7v-10h3zm-5 8h-3v-5h-8v5h-3v-10.26l7-6.912 7 6.99v10.182z"/>
             </svg> </a>
             <a href="../team/index.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M17.997 18h-11.995l-.002-.623c0-1.259.1-1.986 1.588-2.33 1.684-.389 3.344-.736 2.545-2.209-2.366-4.363-.674-6.838 1.866-6.838 2.491 0 4.226 2.383 1.866 6.839-.775 1.464.826 1.812 2.545 2.209 1.49.344 1.589 1.072 1.589 2.333l-.002.619zm4.811-2.214c-1.29-.298-2.49-.559-1.909-1.657 1.769-3.342.469-5.129-1.4-5.129-1.265 0-2.248.817-2.248 2.324 0 3.903 2.268 1.77 2.246 6.676h4.501l.002-.463c0-.946-.074-1.493-1.192-1.751zm-22.806 2.214h4.501c-.021-4.906 2.246-2.772 2.246-6.676 0-1.507-.983-2.324-2.248-2.324-1.869 0-3.169 1.787-1.399 5.129.581 1.099-.619 1.359-1.909 1.657-1.119.258-1.193.805-1.193 1.751l.002.463z"/></svg></a>
             <a href="../../highscore/index.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 1c0 9.803-5.094 13.053-5.592 17h-2.805c-.498-3.947-5.603-7.197-5.603-17h14zm-7.305 13.053c-1.886-3.26-2.635-7.432-2.646-11.053h-1.699c.205 4.648 1.99 8.333 4.345 11.053zm1.743 4.947h-2.866c-.202 1.187-.63 2.619-2.571 2.619v1.381h8v-1.381c-1.999 0-2.371-1.432-2.563-2.619zm7.08-1.596c-1.402-.634-2.609-.19-3.354.293.745-.484 1.603-1.464 1.595-3.003-2.591 1.038-2.295 2.496-2.765 3.345-.315.571-1.007.274-1.007.274l-.213.352c.365.193.989.319 1.716.319 1.307 0 2.949-.409 4.028-1.58zm2.444-4.022c-1.382.097-2.118 1.061-2.501 1.763.383-.702.614-1.942-.05-3.158-1.61 1.929-.752 2.958-.762 3.831-.004.427-.49.417-.49.417l.007.404c.314-.041 3.154-.717 3.796-3.257zm1.036-3.87c-1.171.426-1.56 1.473-1.718 2.175.158-.702.041-1.863-.835-2.75-.915 2.068.082 2.745.29 3.503.102.371-.325.606-.325.606l.29.179c.061-.029 2.385-1.332 2.298-3.713zm-.2-3.792c-.903.666-1.017 1.688-.974 2.335-.042-.646-.395-1.639-1.376-2.182-.264 2.018.769 2.349 1.142 2.95.182.294.023.658.023.658l.284-.019s.026-.127.169-.442c.291-.644 1.255-1.334.732-3.3zm-1.901-2.72s-.273.984-.045 1.732c.244.798.873 1.361.873 1.361s.34-.873.099-1.733c-.222-.792-.927-1.36-.927-1.36zm-12.67 15.665l-.213-.352s-.691.297-1.007-.274c-.47-.849-.174-2.307-2.765-3.345-.008 1.539.85 2.52 1.595 3.003-.745-.484-1.952-.927-3.354-.293 1.078 1.171 2.721 1.581 4.028 1.581.727-.001 1.35-.127 1.716-.32zm-4.393-2.027l.007-.404s-.486.01-.49-.417c-.009-.873.848-1.901-.762-3.831-.664 1.216-.433 2.457-.05 3.158-.383-.702-1.12-1.666-2.501-1.763.642 2.541 3.482 3.217 3.796 3.257zm-2.533-3.413l.29-.179s-.427-.236-.325-.606c.208-.758 1.205-1.435.29-3.503-.876.887-.994 2.048-.835 2.75-.158-.702-.546-1.749-1.718-2.175-.088 2.381 2.236 3.684 2.298 3.713zm-1.366-4.204c.143.315.169.442.169.442l.284.019s-.159-.364.023-.658c.373-.601 1.405-.933 1.142-2.95-.983.542-1.335 1.534-1.377 2.181.042-.647-.072-1.67-.974-2.335-.523 1.966.441 2.656.733 3.301zm.241-4.661c-.24.86.099 1.733.099 1.733s.629-.563.873-1.361c.228-.748-.045-1.732-.045-1.732s-.705.568-.927 1.36z"/></svg></a>
             </div>
             <div class="d-flex justify-content-center">
-              <button class="btn btn-outline-secondary" id="profile-stats-sign-out">
+              <button class="btn btn-outline-secondary" id="profile-score-sign-out">
                 Sign Out
               </button>
             </div>
@@ -90,9 +92,9 @@
         addDateToPicker()
         hideStepsAtDate()
         getTotalNumberOfStepsFromUser()
-        $('#profile-stats-sign-out').click(() => {
+        $('#profile-score-sign-out').click(() => {
           sessionStorage.removeItem('loggedIn')
-          window.location.href = "../../../";
+          window.location.href = "../../../index.html";
         })
       })
     </script>
