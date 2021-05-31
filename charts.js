@@ -162,7 +162,6 @@ function getSevenLastDaysSteps() {
   // ----------------------------------Calculate Avrage amount of steps last week----------------------------------
   function setAvrageAmount(){
     let avrage = (stepsYesterday + stepsTwoDaysAgo + stepsThreeDaysAgo + stepsFourDaysAgo + stepsFiveDaysAgo + stepsSixDaysAgo + stepsSevenDaysAgo)/7
-    console.log(Math.round(avrage))
 
     $('#avrage-last-week').append(`${Math.round(avrage)}`)
   }
