@@ -20,6 +20,9 @@ $('#nav-sign-in').click(() => {
         $('#loginModal').modal('show')
     }
 })
+$('#go-to-add-steps').click(()=> {
+    window.location.href='../profile/add-steps/index.html'
+})
 
 /**
  * checks if there is any user in sessionStorage and
@@ -31,11 +34,12 @@ const checkIfLoggedIn = () => {
     if(isLoggedIn == null){
         $('#nav-sign-in').text('Sign in');
         
+        
     }else {
-        setNavLinksToActive()
         $('#nav-sign-in').text('Sign out');
         $('#nav-sign-in').attr('data-bs-target', '')
         $('#nav-sign-in').click(signOut)
+        //setNavLinksToActive()
     }
 }
 
@@ -55,6 +59,8 @@ const validateSignIn = () => {
             $('#loginModal').modal('hide')
             email.val('')
             password.val('')
+            window.location.replace("./pages/homepage-logged-in/index.html");
+            
         }
         if(resp.status == 204){
             swal("Warning", "Could not find any user with matching credentials", "warning");
@@ -74,14 +80,14 @@ const validateSignIn = () => {
 const signOut = () => {
     $('#nav-sign-in').text('Sign in');
     sessionStorage.removeItem('loggedIn')
-    setNavLinksToActive()
     $('#nav-sign-in').attr('data-bs-target', '#loginModal')
+    window.location.replace("../../index.html");
 }
 
 /**
  * activate or deactivate navlinks if a user is logged in
  */
-const setNavLinksToActive = () => {
+ const setNavLinksToActive = () => {
     const profile = $('#navbarDropdown')
     const highscore = $('#nav-highscore')
     const teamHighscore = $('#nav-team-highscore')
@@ -334,6 +340,7 @@ const clearFields = () => {
 const getStepsFromDb = (date) => {
     const userEmail = JSON.parse(sessionStorage.getItem('loggedIn')).email;
     let stepsFromDb;
+    console.log("datum oscar skickar in " + date)
     
     axios.get(`${getStepsOfUser}${userEmail}`)
     .then(resp => {
@@ -725,3 +732,19 @@ const fillTeamHighScoreList = () => {
 }
 
 const sortTeamDecending = (list) => { return list.sort((a, b) => parseFloat(b.steps) - parseFloat(a.steps))}
+
+/**
+ * finds number of steps of the user by date
+ * @param {User} user 
+ * @param {String} date 
+ * @returns Number of steps
+ */
+ function findStepsOfDateToDiagram(user, date){
+   for (const iterator of user.steps) {
+       if(iterator.date == date){
+           return iterator.steps;
+       }
+   }
+   return null;
+}
+
