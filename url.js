@@ -1,8 +1,8 @@
 // for localhost
-//const startUrl = 'https://go-north.herokuapp.com'
+const startUrl = 'http://localhost:8080/'
 
 // for heruko 
-const startUrl = 'https://go-north.herokuapp.com'
+//const startUrl = 'https://go-north.herokuapp.com'
 
 let validateLogin = `${startUrl}/api/v1/users/validate/`
 let getStepsOfUser = `${startUrl}/api/v1/users/get/one?email=`
