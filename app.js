@@ -36,10 +36,7 @@ const checkIfLoggedIn = () => {
         
         
     }else {
-        $('#nav-sign-in').text('Sign out');
-        $('#nav-sign-in').attr('data-bs-target', '')
-        $('#nav-sign-in').click(signOut)
-        //setNavLinksToActive()
+        window.location.href='./pages/homepage-logged-in/index.html'
     }
 }
 

@@ -127,7 +127,15 @@
   <script src="./app.js"></script>
   <script>
     $(document).ready(() => {
-      checkIfLoggedIn()
+      const isLoggedIn = JSON.parse(sessionStorage.getItem('loggedIn'))
+    
+    if(isLoggedIn == null){
+        $('#nav-sign-in').text('Sign in');
+        
+    }else {
+      console.log("borde skicka till inloggat läge" )
+        window.location.href='./pages/homepage-logged-in/index.html'
+    }
     })
   </script>
 </body>

@@ -1,3 +1,5 @@
+
+
 var today = new Date();
 let yesterday = new Date();
 let twoDaysAgo = new Date();
@@ -27,6 +29,7 @@ let personalGoalToDiagram
 
 const setAllDiagramStats = () => {
     const userEmail = JSON.parse(sessionStorage.getItem("loggedIn")).email;
+
 
     axios
     .get(`${getStepsOfUser}${userEmail}`)
