@@ -16,7 +16,11 @@ a {
 }
 
 a:hover {
-    color:#000000; 
+    color:#888888; 
     text-decoration:none; 
     cursor:pointer;  
+}
+
+#stats{
+    text-decoration-line: underline;
 }

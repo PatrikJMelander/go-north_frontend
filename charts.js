@@ -23,7 +23,7 @@ let stepsFourDaysAgo
 let stepsFiveDaysAgo
 let stepsSixDaysAgo
 let stepsSevenDaysAgo
-
+let personalGoalToDiagram
 
 const setAllDiagramStats = () => {
     const userEmail = JSON.parse(sessionStorage.getItem("loggedIn")).email;
@@ -39,10 +39,12 @@ const setAllDiagramStats = () => {
       stepsFiveDaysAgo = findStepsOfDateToDiagram(resp.data, fiveDaysAgo.toISOString().slice(0, 10));
       stepsSixDaysAgo = findStepsOfDateToDiagram(resp.data, sixDaysAgo.toISOString().slice(0, 10));
       stepsSevenDaysAgo = findStepsOfDateToDiagram(resp.data, sevenDaysAgo.toISOString().slice(0, 10));
+      personalGoalToDiagram = findpersonalGoal(resp.data)
     })
     .then(() => {
         renderDiagram()
         setAvrageAmount()
+        setPersonalGoalView()
       });
 }
 //----------------------------------Render the diagram----------------------------------
@@ -82,7 +84,7 @@ function renderDiagram() {
           pointBackgroundColor: colors[0],
         },
         {
-          data: [10000, 10000, 10000, 10000, 10000, 10000, 10000],
+          data: [ personalGoalToDiagram,  personalGoalToDiagram,  personalGoalToDiagram,  personalGoalToDiagram,  personalGoalToDiagram,  personalGoalToDiagram,  personalGoalToDiagram],
           backgroundColor: colors[3],
           borderColor: colors[2],
           borderWidth: 2,
@@ -115,9 +117,7 @@ function renderDiagram() {
   
 // ----------------------------------Gets the steps for choosen date ----------------------------------
 function getStepsToDiagram(date) {
-  console.log("Date jag skickar in " + date);
   const userEmail = JSON.parse(sessionStorage.getItem("loggedIn")).email;
-  console.log(userEmail);
   let stepsToDiagram;
 
   axios
@@ -164,6 +164,14 @@ function getSevenLastDaysSteps() {
     let avrage = (stepsYesterday + stepsTwoDaysAgo + stepsThreeDaysAgo + stepsFourDaysAgo + stepsFiveDaysAgo + stepsSixDaysAgo + stepsSevenDaysAgo)/7
 
     $('#avrage-last-week').append(`${Math.round(avrage)}`)
+    if(avrage<personalGoalToDiagram){
+      $('#avrage-last-week').css('color', 'red');
+    }
+    else{$('#avrage-last-week').css('color', 'green');}
+  }
+
+  function setPersonalGoalView(){
+    $('#personal-goal-view').append(`${personalGoalToDiagram}`)
   }
 
 $(document).ready(function() {
