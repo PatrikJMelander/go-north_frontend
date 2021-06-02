@@ -1,5 +1,5 @@
 // for localhost
-//const startUrl = 'https://go-north.herokuapp.com'
+//const startUrl = 'http://localhost:8080/'
 
 // for heruko 
 const startUrl = 'https://go-north.herokuapp.com'
@@ -11,6 +11,7 @@ let totalStep = `${startUrl}/api/v1/users/get/all/steps?email=`
 let getAllUsers = `${startUrl}/api/v1/users/`
 let deleteUser = `${startUrl}/api/v1/users/delete`
 let updateUser = `${startUrl}/api/v1/users/update`
+let updatePersonalGoals = `${startUrl}/api/v1/users/add/personalgoal`
 let updatePassword = `${startUrl}/api/v1/users/update/password`
 let addUserToTeam = `${startUrl}/api/v1/teams/add/user`
 let addTeamUrl = `${startUrl}/api/v1/teams/add`

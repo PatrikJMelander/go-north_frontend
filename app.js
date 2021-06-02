@@ -150,6 +150,10 @@ $('#update').click(() => {
     updateUserInfo();
 })
 
+$('#update-personal-goals').click(() => {
+    updatePersonalGoalsFunc();
+})
+
 $('#update-password').click(() => {
     updateUserPassword();
 })
@@ -237,6 +241,23 @@ const updateUserInfo = () => {
     .catch(() => {
         swal("Something went wrong, try again.", {
             icon: "warning",
+        })
+    })
+}
+
+const updatePersonalGoalsFunc = () =>{
+    const user = JSON.parse(sessionStorage.getItem('loggedIn'))
+    const personalGoal = $('#personal-goals')
+
+    axios.post(`${updatePersonalGoals}?email=${user.email}&personalGoal=${personalGoal.val()}`)
+    .then(() => {
+        swal("Personal Goal updated successfully", {
+            icon: "success",
+        })
+        .catch(() => {
+            swal("Something went wrong, try again.", {
+                icon: "warning",
+            })
         })
     })
 }
@@ -747,4 +768,9 @@ const sortTeamDecending = (list) => { return list.sort((a, b) => parseFloat(b.st
    }
    return null;
 }
+
+function findpersonalGoal(user){
+    console.log(user)
+    return user.personalGoals
+ }
 
