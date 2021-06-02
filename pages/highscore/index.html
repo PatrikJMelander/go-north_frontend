@@ -21,11 +21,10 @@
           >Go North</a
         >
         <a href="../profile/information/index.html"
-          ><img src ="../../images/edit-user-32.png"></a>
+          ><img src="../../images/edit-user-32.png"
+        /></a>
       </div>
     </nav>
-
-
 
     <div class="container mt-5">
       <div class="row g-0">
@@ -44,29 +43,29 @@
     </div>
 
     <div class="dropdown m-2 sorting-dropdown">
-        <button
-          class="btn btn-secondary dropdown-toggle"
-          type="button"
-          id="filter-btn"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Show
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="filter-btn">
-          <li>
-            <button class="dropdown-item" type="button" id="btn-10">0-10</button>
-          </li>
-          <li>
-            <button class="dropdown-item" type="button" id="btn-20">
-              0 - 20
-            </button>
-          </li>
-          <li>
-            <button class="dropdown-item" type="button" id="btn-all">all</button>
-          </li>
-        </ul>
-      </div>
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        id="filter-btn"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Show
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="filter-btn">
+        <li>
+          <button class="dropdown-item" type="button" id="btn-10">0-10</button>
+        </li>
+        <li>
+          <button class="dropdown-item" type="button" id="btn-20">
+            0 - 20
+          </button>
+        </li>
+        <li>
+          <button class="dropdown-item" type="button" id="btn-all">all</button>
+        </li>
+      </ul>
+    </div>
 
     <div class="container">
       <div class="row g-0">
@@ -83,51 +82,51 @@
         </table>
       </div>
     </div>
-    
+
     <!-- FILTER BTN -->
 
     <div class="dropdown m-2 sorting-dropdown">
-        <button
-          class="btn btn-secondary dropdown-toggle"
-          type="button"
-          id="team-filter-btn"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Show
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="team-filter-btn">
-          <li>
-            <button class="dropdown-item" type="button" id="team-btn-10">
-              0-10
-            </button>
-          </li>
-          <li>
-            <button class="dropdown-item" type="button" id="team-btn-20">
-              0 - 20
-            </button>
-          </li>
-          <li>
-            <button class="dropdown-item" type="button" id="team-btn-all">
-              all
-            </button>
-          </li>
-        </ul>
-      </div>
-  
-      <!-- FILTER BTN ENDS -->
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        id="team-filter-btn"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Show
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="team-filter-btn">
+        <li>
+          <button class="dropdown-item" type="button" id="team-btn-10">
+            0-10
+          </button>
+        </li>
+        <li>
+          <button class="dropdown-item" type="button" id="team-btn-20">
+            0 - 20
+          </button>
+        </li>
+        <li>
+          <button class="dropdown-item" type="button" id="team-btn-all">
+            all
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- FILTER BTN ENDS -->
 
     <footer class="container">
       <div class="row pt-3">
         <div class="col align-self-center text-center">
           <div class="d-flex justify-content-between me-5 ms-5 mb-2">
             <a href="../homepage-logged-in/index.html">
-              <img src ="../../images/home-2-32.png">
+              <img src="../../images/home-2-32.png" />
             </a>
             <a href="../profile/team/"
-              ><img src ="../../images/conference-32.png"></a>
-            <a href="../highscore/"
-              ><img src ="../../images/star-2-32.png"></a>
+              ><img src="../../images/conference-32.png"
+            /></a>
+            <a href="../highscore/"><img src="../../images/star-2-32.png" /></a>
           </div>
           <div class="d-flex justify-content-center">
             <button class="btn btn-outline-secondary" id="highscore-sign-out">
@@ -156,8 +155,16 @@
     <script src="../../app.js"></script>
     <script>
       $(document).ready(() => {
+        const isLoggedIn = JSON.parse(sessionStorage.getItem("loggedIn"));
+
+        if (isLoggedIn == null) {
+          window.location.href =
+            "https://patrikjmelander.github.io/go-north_frontend/index.html";
+        }
+
         fillHighScoreList();
         fillTeamHighScoreList();
+
         $("#highscore-sign-out").click(() => {
           sessionStorage.removeItem("loggedIn");
           window.location.href = "../../index.html";
@@ -166,4 +173,3 @@
     </script>
   </body>
 </html>
-
